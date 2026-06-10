@@ -1,0 +1,22 @@
+usd_amount = 50         
+usd_rate = 90.5          
+commission_percent = 2.5 
+
+amount_without_commission = usd_amount * usd_rate
+
+commission_rate = commission_percent / 100
+
+total_amount = amount_without_commission * (1 + commission_rate)
+
+print("=" * 50)
+print("обмен валюты")
+print("=" * 50)
+print(f"Курс USD:{usd_rate} руб")
+print(f"Сумма покупки:{usd_amount} USD")
+print(f"Комиссия банка:{commission_percent}%")
+print("-" * 50)
+print(f"Сумма без комиссии:{amount_without_commission:.2f} руб")
+print(f"Комиссия:+{amount_without_commission * commission_rate:.2f} руб")
+print("-" * 50)
+print(f"итог к списанию:{total_amount:.2f} руб")
+print("=" * 50)
