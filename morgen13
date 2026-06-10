@@ -1,0 +1,78 @@
+def calculate_order(order_amount, delivery_zone):
+    delivery_prices = {
+        "city": 200,
+        "region": 500,
+        "country": 1000
+    }
+    
+    if delivery_zone not in delivery_prices:
+        return None, None, None, "Неизвестная зона доставки!"
+    
+    base_delivery_cost = delivery_prices[delivery_zone]
+    
+    discount = 0
+    
+    if order_amount >= 5000:
+        discount = order_amount * 0.15  
+    elif order_amount >= 3000:
+        discount = order_amount * 0.10  
+    elif order_amount >= 1000:
+        discount = order_amount * 0.05  
+    
+    amount_after_discount = order_amount - discount
+
+    if amount_after_discount >= 15000:
+        delivery_cost = 0
+        free_delivery = True
+    else:
+        delivery_cost = base_delivery_cost
+        free_delivery = False
+    
+    total = amount_after_discount + delivery_cost
+    
+    return total, discount, delivery_cost, free_delivery, None
+
+print("=" * 55)
+print("расчёт стоимости заказа")
+print("=" * 55)
+
+try:
+    order_amount = float(input("Введите сумму заказа (руб): "))
+    
+    print("\nЗоны доставки:")
+    print("  city    - доставка по городу (200 руб)")
+    print("  region  - доставка по области (500 руб)")
+    print("  country - доставка по стране (1000 руб)")
+    print("  (Бесплатная доставка при сумме после скидки >= 15000 руб)")
+    
+    delivery_zone = input("\nВведите зону доставки: ").strip().lower()
+    
+    total, discount, delivery_cost, free_delivery, error = calculate_order(
+        order_amount, delivery_zone
+    )
+    
+    if error:
+        print(f"\nОшибка: {error}")
+    else:
+        print("\n" + "=" * 55)
+        print("РЕЗУЛЬТАТ РАСЧЕТА:")
+        print("=" * 55)
+        print(f"Сумма заказа:{order_amount:>10.2f} руб")
+        print(f"Скидка:-{discount:>10.2f} руб")
+        print(f"Сумма после скидки:{order_amount - discount:>10.2f} руб")
+
+        if free_delivery:
+            print(f"Доставка:{delivery_cost:>10.2f} руб (БЕСПЛАТНО!)")
+            print(f"(сумма после скидки >= 15000 руб)")
+        else:
+            print(f"Доставка:+{delivery_cost:>10.2f} руб")
+            need = 15000 - (order_amount - discount)
+            if need > 0:
+                print(f"(до бесплатной доставки не хватает {need:.2f} руб)")
+        
+        print("-" * 55)
+        print(f"итог:{total:>10.2f} руб")
+        print("=" * 55)
+        
+except ValueError:
+    print("Ошибка: введите корректную сумму заказа!")
