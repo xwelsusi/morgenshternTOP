@@ -1,0 +1,20 @@
+price = 1200           
+discount_percent = 15  
+tax_percent = 20       
+
+discount = price * (discount_percent / 100)  
+price_after_discount = price - discount      
+
+tax = price_after_discount * (tax_percent / 100) 
+final_price = price_after_discount + tax           
+
+print("=" * 50)
+print("расчёт")
+print("=" * 50)
+print(f"Начальная цена:{price:>10} руб")
+print(f"Скидка ({discount_percent}%):-{discount:>10.2f} руб")
+print(f"Цена после скидки:{price_after_discount:>10.2f} руб")
+print(f"Налог ({tax_percent}%):+{tax:>10.2f} руб")
+print("-" * 50)
+print(f"итоговая цена:{final_price:>10.2f} руб")
+print("=" * 50)
