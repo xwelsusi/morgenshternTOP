@@ -1,0 +1,56 @@
+def calculate_order(order_amount, delivery_zone):
+    
+    delivery_cost = 0
+    
+    if delivery_zone == "city":
+        delivery_cost = 200
+    elif delivery_zone == "region":
+        delivery_cost = 500
+    elif delivery_zone == "country":
+        delivery_cost = 1000
+    else:
+        print("Ошибка: неизвестная зона доставки!")
+        return None, None, None
+    
+    discount = 0
+    
+    if order_amount >= 5000:
+        discount = order_amount * 0.15  
+    elif order_amount >= 3000:
+        discount = order_amount * 0.10  
+    elif order_amount >= 1000:
+        discount = order_amount * 0.05  
+    
+    total = order_amount - discount + delivery_cost
+    
+    return total, delivery_cost, discount
+
+print("=" * 50)
+print("   РАСЧЕТ СТОИМОСТИ ЗАКАЗА")
+print("=" * 50)
+
+try:
+    order_amount = float(input("Введите сумму заказа (руб): "))
+    
+    print("\nЗоны доставки:")
+    print("  city    - доставка по городу (200 руб)")
+    print("  region  - доставка по области (500 руб)")
+    print("  country - доставка по стране (1000 руб)")
+    
+    delivery_zone = input("Введите зону доставки: ").strip().lower()
+    total, delivery_cost, discount = calculate_order(order_amount, delivery_zone)
+    
+    if total is not None:
+        # Вывод результатов
+        print("\n" + "=" * 50)
+        print("результат:")
+        print("=" * 50)
+        print(f"Сумма заказа:{order_amount:>10.2f} руб")
+        print(f"Скидка:-{discount:>10.2f} руб")
+        print(f"Доставка:+{delivery_cost:>10.2f} руб")
+        print("-" * 30)
+        print(f"итог:{total:>10.2f} руб")
+        print("=" * 50)
+        
+except ValueError:
+    print("Ошибка: введите корректную сумму заказа!")
